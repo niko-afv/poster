@@ -3,27 +3,24 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Facebook\Facebook;
-use Session;
 use App;
+use App\UserPages;
+use Illuminate\Validation\Validator;
 
-
-class PostsController extends Controller
+class PagesController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($token = 'xD')
+    public function index()
     {
-        // Save for later
-
-        return response()->json([
-            'data' => [
-                'token' => $token
+        return response()->json(
+            [
+                'pages' => UserPages::all()
             ]
-        ]);
+        );
     }
 
     /**
@@ -44,28 +41,27 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'id'=> 'unique:user_pages,id'
+        ]);
 
-        // Get basic info on the user from Facebook.
-        try {
-
-            $pages = $fb->get('/me/accounts', $request->token);
-            $pages = $pages->getGraphEdge()->asArray();
-
-            //$response = $fb->post('/'.$pages[0]['id'].'/feed', ['message' => $request->post_content, 'link' => $request->link], $pages['0']['access_token']);
-            $response = $fb->post('/'.$pages[0]['id'].'/photos', ['message'=> 'Checkout my photo','url' => 'https://statics.viralizalo.com/virs/2016/08/VIR_286240_21980_que_tipo_de_director_deportivo_serias.jpg?cb=5013538'], $pages['0']['access_token']);
-
-
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            dd($e->getMessage());
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Page already exits!'
+            ]);
         }
 
-        dd($response->getGraphNode()->asArray());
+
+        $response = UserPages::create([
+            'id' => $request->id,
+            'name' => $request->name,
+            'category' => $request->category,
+            'photo' => $request->photo
+        ]);
 
         return response()->json([
-            'data' => [
-                'content' => $request->get('content')
-            ]
+            'success' => $response
         ]);
     }
 
