@@ -52,7 +52,6 @@ class PagesController extends Controller
             ]);
         }
 
-
         $response = UserPages::create([
             'id' => $request->id,
             'name' => $request->name,

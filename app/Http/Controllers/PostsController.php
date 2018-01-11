@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Facebook\Facebook;
 use Session;
+use App\Classes\FBPoster;
+use App\Classes\IGPoster;
 use App;
 
 
@@ -44,27 +45,22 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
 
-        // Get basic info on the user from Facebook.
-        try {
+        $params = [
+            'token' => $request->token,
+            'post_content' => $request->post_content,
+            'link' => $request->link,
+            'photo' => '20118882.jpg'
+        ];
 
-            $pages = $fb->get('/me/accounts', $request->token);
-            $pages = $pages->getGraphEdge()->asArray();
+        $fb_response = FBPoster::post($params);
+        //$ig_response = IGPoster::post($params);
 
-            //$response = $fb->post('/'.$pages[0]['id'].'/feed', ['message' => $request->post_content, 'link' => $request->link], $pages['0']['access_token']);
-            $response = $fb->post('/'.$pages[0]['id'].'/photos', ['message'=> 'Checkout my photo','url' => 'https://statics.viralizalo.com/virs/2016/08/VIR_286240_21980_que_tipo_de_director_deportivo_serias.jpg?cb=5013538'], $pages['0']['access_token']);
-
-
-        } catch (Facebook\Exceptions\FacebookSDKException $e) {
-            dd($e->getMessage());
-        }
-
-        dd($response->getGraphNode()->asArray());
 
         return response()->json([
             'data' => [
-                'content' => $request->get('content')
+                'fb_response' => $fb_response,
+                //'ig_response' => $ig_response
             ]
         ]);
     }
