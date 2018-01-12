@@ -18,7 +18,7 @@ Route::get('/', function () {
 
 Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb) {
     // Send an array of permissions to request
-    $login_url = $fb->getLoginUrl(['email','manage_pages', 'manage_pages', 'publish_actions']);
+    $login_url = $fb->getLoginUrl(['email','manage_pages', 'publish_pages', 'publish_actions']);
     return redirect($login_url);
 
     // Obviously you'd do this in blade :)
