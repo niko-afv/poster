@@ -34,6 +34,18 @@ class PhotosController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
+            'image'=> 'required|image|mimes:jpeg,jpg'
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Invalid file format, must be image with jpg extension.'
+            ]);
+        }
+
         $oFile = $path = $request->file('image');
         $ext = explode('/',$oFile->getMimeType())[1];
         $dir = 'post_photos';
