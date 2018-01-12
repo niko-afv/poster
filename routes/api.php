@@ -17,6 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::resource('users', 'UsersController');
+Route::resource('users.pages', 'UsersPagesController');
+Route::resource('posts', 'PostsController');
+Route::resource('pages', 'PagesController');
+Route::resource('photos', 'PhotosController');
+Route::resource('accounttypes', 'AccountTypesController');
+Route::get('fanpages/{token}', 'FanPagesController@index');
+
+
+
 Route::get('/{user_id}/{token}', function ($user_id, $token){
     return response()->json([
         'success' => true,
@@ -27,9 +37,3 @@ Route::get('/{user_id}/{token}', function ($user_id, $token){
         ]
     ]);
 });
-
-Route::resource('posts', 'PostsController');
-Route::resource('pages', 'PagesController');
-Route::resource('photos', 'PhotosController');
-Route::resource('accounttypes', 'AccountTypesController');
-Route::get('fanpages/{token}', 'FanPagesController@index');

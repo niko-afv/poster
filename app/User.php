@@ -28,4 +28,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+    public function pages(){
+        return $this->hasMany(UserPages::class, 'user_id', 'id');
+    }
 }
