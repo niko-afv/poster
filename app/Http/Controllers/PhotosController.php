@@ -38,14 +38,16 @@ class PhotosController extends Controller
         $ext = explode('/',$oFile->getMimeType())[1];
         $dir = 'post_photos';
         $filename = str_slug($oFile->getFilename()). '.' . $ext;
-        $oFile->move(public_path($dir),$filename);
+        $path = $oFile->move(public_path($dir),$filename)->getRealPath();
 
         $url= url($dir . '/' . $filename);
+
 
         return response()->json([
             'success' => true,
             'data' => [
-                'photo_url' => $url
+                'photo_url' => $url,
+                'photo_path' => $path
             ]
         ]);
     }

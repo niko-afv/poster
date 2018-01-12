@@ -36,7 +36,7 @@ class IGPoster extends Poster
 
             // if you want only a caption, you can simply do this:
             $metadata = ['caption' => $params['post_content']];
-            $ig->timeline->uploadPhoto(public_path($params['photo']), $metadata);
+            $ig->timeline->uploadPhoto($params['ig_photo'], $metadata);
 
             return $response;
 

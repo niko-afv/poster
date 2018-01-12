@@ -50,17 +50,18 @@ class PostsController extends Controller
             'token' => $request->token,
             'post_content' => $request->post_content,
             'link' => $request->link,
-            'photo' => '20118882.jpg'
+            'fb_photo' => $request->facebook_photo,
+            'ig_photo' => $request->instagram_photo
         ];
 
         $fb_response = FBPoster::post($params);
-        //$ig_response = IGPoster::post($params);
+        $ig_response = IGPoster::post($params);
 
 
         return response()->json([
             'data' => [
                 'fb_response' => $fb_response,
-                //'ig_response' => $ig_response
+                'ig_response' => $ig_response
             ]
         ]);
     }
