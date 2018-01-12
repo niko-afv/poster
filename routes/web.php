@@ -84,6 +84,8 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
 
     // Log the user into Laravel
     Auth::login($user);
+    Auth::user()->remember_token = $token;
+    Auth::user()->save();
 
     return redirect('/api/'.Auth::user()->id.'/'.$token);
 });

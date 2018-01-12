@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App;
 use App\UserPages;
 use Illuminate\Validation\Validator;
+use App\Http\Requests\PagesDeleteRequest;
 
 class PagesController extends Controller
 {
@@ -107,7 +108,7 @@ class PagesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(PagesDeleteRequest $request, $id)
     {
         $affected = UserPages::destroy([$id]);
 
