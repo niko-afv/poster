@@ -37,8 +37,8 @@ class PhotosController extends Controller
         $oFile = $path = $request->file('image');
         $ext = explode('/',$oFile->getMimeType())[1];
         $dir = 'post_photos';
-        $filename = str_slug($oFile->getClientOriginalName()). '.' . $ext;
-        $path= $oFile->move(public_path($dir),$filename);
+        $filename = str_slug($oFile->getFilename()). '.' . $ext;
+        $oFile->move(public_path($dir),$filename);
 
         $url= url($dir . '/' . $filename);
 
