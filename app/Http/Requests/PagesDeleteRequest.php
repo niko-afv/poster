@@ -16,6 +16,8 @@ class PagesDeleteRequest extends FormRequest
     public function authorize()
     {
         $page = UserPages::find($this->route('page'));
+        if(!$page){return true;}
+
         $user = User::where('remember_token', $this->get('access_token'))->where('id',$page->user_id)->get();
 
         return ($user->count())?true:false;
