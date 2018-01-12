@@ -18,6 +18,7 @@ class UserPages extends Migration
             $table->string('name')->unique();
             $table->string('category')->default('none');
             $table->string('photo')->nullable();
+            $table->string('user_id');
             $table->timestamps();
         });
     }

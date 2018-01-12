@@ -42,7 +42,9 @@ class PagesController extends Controller
     public function store(Request $request)
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'id'=> 'unique:user_pages,id'
+            'id'=> 'unique:user_pages,id',
+            'name'=> 'unique:user_pages,name',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if ($validator->fails()) {
@@ -56,7 +58,8 @@ class PagesController extends Controller
             'id' => $request->id,
             'name' => $request->name,
             'category' => $request->category,
-            'photo' => $request->photo
+            'photo' => $request->photo,
+            'user_id' => $request->user_id
         ]);
 
         return response()->json([
@@ -106,6 +109,10 @@ class PagesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $affected = UserPages::destroy([$id]);
+
+        return response()->json([
+            'success' => ($affected >0)?true:false,
+        ]);
     }
 }

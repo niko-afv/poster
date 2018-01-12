@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserPages extends Model
 {
-    protected $fillable = ['id', 'name', 'category', 'photo'];
+    protected $fillable = ['id', 'name', 'category', 'photo', 'user_id'];
 }

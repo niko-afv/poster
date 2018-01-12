@@ -17,6 +17,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/{user_id}/{token}', function ($user_id, $token){
+    return response()->json([
+        'success' => true,
+        'message' => 'Login With Facebook Succeed',
+        'data' => [
+            'access_token' => $token,
+            'user_id' =>$user_id
+        ]
+    ]);
+});
+
 Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
 Route::resource('photos', 'PhotosController');

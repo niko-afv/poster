@@ -17,7 +17,9 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('username');
             $table->string('password');
+            $table->string('avatar');
             $table->integer('account_type_id')->unsigned();
+            $table->string('user_id');
             $table->timestamps();
         });
     }

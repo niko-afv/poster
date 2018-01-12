@@ -20,9 +20,6 @@ Route::get('/facebook/login', function(SammyK\LaravelFacebookSdk\LaravelFacebook
     // Send an array of permissions to request
     $login_url = $fb->getLoginUrl(['email','manage_pages', 'publish_pages', 'publish_actions']);
     return redirect($login_url);
-
-    // Obviously you'd do this in blade :)
-    echo '<a href="' . $login_url . '">Login with Facebook</a>';
 });
 
 Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFacebookSdk $fb)
@@ -88,5 +85,5 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     // Log the user into Laravel
     Auth::login($user);
 
-    return redirect('/api/posts/'.$token)->with('message', 'Successfully logged in with Facebook');
+    return redirect('/api/'.Auth::user()->id.'/'.$token);
 });

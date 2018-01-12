@@ -13,10 +13,6 @@ class AccountTypesTableSeeder extends Seeder
     public function run()
     {
         DB::table('account_types')->insert([
-            'description' => 'Facebook',
-        ]);
-
-        DB::table('account_types')->insert([
             'description' => 'Instagram',
         ]);
     }
