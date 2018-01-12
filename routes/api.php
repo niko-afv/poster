@@ -19,5 +19,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
+Route::resource('photos', 'PhotosController');
 Route::resource('accounttypes', 'AccountTypesController');
 Route::get('fanpages/{token}', 'FanPagesController@index');
