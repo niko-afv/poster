@@ -88,5 +88,6 @@ Route::get('/facebook/callback', function(SammyK\LaravelFacebookSdk\LaravelFaceb
     Auth::user()->save();
 
     //return redirect('/api/'.Auth::user()->id.'/'.$token);
-    return redirect(env('CLIENT_APP_URL'));
+    $return_url = env('CLIENT_APP_URL'). '/'.Auth::user()->id.'/'.$token;
+    return redirect($return_url);
 });

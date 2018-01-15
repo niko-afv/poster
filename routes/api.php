@@ -17,6 +17,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::post('/authenticate', function(Request $request){
+    return response()->json([
+        'data' => $request->all()
+    ]);
+});
+
 Route::resource('users', 'UsersController');
 Route::resource('users.pages', 'UsersPagesController');
 Route::resource('posts', 'PostsController');

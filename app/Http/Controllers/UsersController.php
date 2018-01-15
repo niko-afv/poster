@@ -9,16 +9,6 @@ class UsersController extends Controller
 {
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -29,17 +19,6 @@ class UsersController extends Controller
         return response()->json([
             'user' => User::find($id)
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        return User::find($id);
     }
 
     /**
