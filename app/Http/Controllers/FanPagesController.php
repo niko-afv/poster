@@ -25,7 +25,7 @@ class FanPagesController extends Controller
             $photos_list = $fb_response->getGraphEdge()->asArray();
 
             $pages[] = [
-                //'token' => $page['access_token'],
+                'token' => $page['access_token'],
                 'id' => $page['id'],
                 'name' => $page['name'],
                 'category' => $page['category'],

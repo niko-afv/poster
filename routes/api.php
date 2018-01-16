@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/authenticate', function(Request $request){
     return response()->json([
-        'data' => $request->all()
+        'data' => 'hola mundo'
     ]);
 });
 
