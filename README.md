@@ -2,7 +2,7 @@
 
 API to manage your social media like fanpages, instragram accounts from only one place.
  
- ####3rd Party Packages:
+ #### 3rd Party Packages:
  
  [Laravel Facebook SDK](https://github.com/SammyK/LaravelFacebookSdk#making-requests-to-facebook) by [SammyK](https://github.com/SammyK)
  
