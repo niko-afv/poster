@@ -24,13 +24,12 @@ Route::post('/authenticate', function(Request $request){
         ->first()
     ;
 
-    //DB::enableQueryLog();
-    $user = DB::table("users")
-        ->where('id',$request->user_id)
+    DB::enableQueryLog();
+    $user = DB::table("users")->where('id',$request->user_id)
         ->where('remember_token', $request->token)->get();
-    //$query = DB::getQueryLog();
-    //$query = end($query);
-    //print_r($query);
+    $query = DB::getQueryLog();
+    $query = end($query);
+    print_r($query);
 
 
     return response()->json([
