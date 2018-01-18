@@ -24,22 +24,10 @@ Route::post('/authenticate', function(Request $request){
         ->first()
     ;
 
-    $users = \App\User::all();
-    /*
-    DB::enableQueryLog();
-    $user = DB::table("users")->where('id',$request->user_id)
-        ->where('token', $request->token)->get();
-    $query = DB::getQueryLog();
-    $query = end($query);
-    print_r($query);
-    */
-
-
     return response()->json([
         'success' => (! is_null($user))?true:false,
         'data' => [
             'user' => $user,
-            'users' => $users
             ],
         'message' => (is_null($user))?'No user with auth data':'login succeed'
     ]);
