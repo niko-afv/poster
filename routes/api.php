@@ -20,13 +20,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::post('/authenticate', function(Request $request){
     $user = \App\User::where('id',$request->user_id)
-        ->where('remember_token', $request->token)
+        ->where('token', $request->token)
         ->first()
     ;
 
     DB::enableQueryLog();
     $user = DB::table("users")->where('id',$request->user_id)
-        ->where('remember_token', $request->token)->get();
+        ->where('token', $request->token)->get();
     $query = DB::getQueryLog();
     $query = end($query);
     print_r($query);
