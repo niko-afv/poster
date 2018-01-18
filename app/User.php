@@ -33,4 +33,8 @@ class User extends Authenticatable
     public function pages(){
         return $this->hasMany(UserPages::class, 'user_id', 'id');
     }
+
+    public function scopeByToken($query, $token){
+        return $query->where('remember_token', $token);
+    }
 }

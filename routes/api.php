@@ -18,8 +18,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/authenticate', function(Request $request){
+    $user = \App\User::where('id',$request->user_id)
+        ->where('remember_token', $request->token)
+        ->first()
+    ;
+
     return response()->json([
-        'data' => 'hola mundo'
+        'success' => (! is_null($user))?true:false,
+        'data' => $user,
     ]);
 });
 
@@ -29,7 +35,7 @@ Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
 Route::resource('photos', 'PhotosController');
 Route::resource('accounttypes', 'AccountTypesController');
-Route::get('fanpages/{token}', 'FanPagesController@index');
+Route::get('fanpages', 'FanPagesController@index');
 
 
 

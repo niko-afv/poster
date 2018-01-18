@@ -10,6 +10,7 @@ use App\Http\Requests\PagesDeleteRequest;
 
 class PagesController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -19,7 +20,10 @@ class PagesController extends Controller
     {
         return response()->json(
             [
-                'pages' => UserPages::all()
+                'success' => true,
+                'data' => [
+                    'pages' => App\User::byToken($this->token)->first()->pages
+                ]
             ]
         );
     }

@@ -12,11 +12,11 @@ class FanPagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, $token)
+    public function index(Request $request)
     {
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
 
-        $fb_response = $fb->get('/me/accounts', $token);
+        $fb_response = $fb->get('/me/accounts', $this->token);
         $pages_list = $fb_response->getGraphEdge()->asArray();
         $pages = [];
 
@@ -29,11 +29,12 @@ class FanPagesController extends Controller
                 'id' => $page['id'],
                 'name' => $page['name'],
                 'category' => $page['category'],
-                'photo' => $photos_list[0]
+                'photo' => $photos_list[0]['picture']
             ];
         }
 
         return response()->json([
+            'success' => (count($pages))?true: false,
             'data' => [
                 'pages' => $pages
             ]
