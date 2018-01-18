@@ -18,13 +18,13 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::post('/authenticate', function(Request $request){
-    /*
+
     $user = \App\User::where('id',$request->user_id)
         ->where('token', $request->token)
         ->first()
     ;
-    */
-    $user = \App\User::count();
+
+    $users = \App\User::all();
     /*
     DB::enableQueryLog();
     $user = DB::table("users")->where('id',$request->user_id)
@@ -37,7 +37,10 @@ Route::post('/authenticate', function(Request $request){
 
     return response()->json([
         'success' => (! is_null($user))?true:false,
-        'data' => $user,
+        'data' => [
+            'user' => $user,
+            'users' => $users
+            ],
         'message' => (is_null($user))?'No user with auth data':'login succeed'
     ]);
 });
