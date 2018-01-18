@@ -26,6 +26,7 @@ Route::post('/authenticate', function(Request $request){
     return response()->json([
         'success' => (! is_null($user))?true:false,
         'data' => $user,
+        'message' => (is_null($user))?'No user with auth data':'login succeed'
     ]);
 });
 
