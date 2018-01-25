@@ -34,7 +34,7 @@ Route::post('/authenticate', function(Request $request){
 });
 
 Route::resource('users', 'UsersController');
-Route::resource('users.pages', 'UsersPagesController');
+Route::resource('accounts', 'AccountsController');
 Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
 Route::resource('photos', 'PhotosController');

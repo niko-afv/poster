@@ -36,7 +36,7 @@ class FanPagesController extends Controller
         return response()->json([
             'success' => (count($pages))?true: false,
             'data' => [
-                'pages' => $pages
+                'accounts' => $pages
             ]
         ]);
     }

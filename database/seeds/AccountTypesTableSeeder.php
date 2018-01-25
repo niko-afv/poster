@@ -12,8 +12,15 @@ class AccountTypesTableSeeder extends Seeder
      */
     public function run()
     {
+        DB::table('account_types')->truncate();
+
         DB::table('account_types')->insert([
-            'description' => 'Instagram',
+            'name' => 'Facebook Fanpage',
+            'icon' => 'fa-facebook-official'
+        ]);
+        DB::table('account_types')->insert([
+            'name' => 'Instagram Account',
+            'icon' => 'fa-instagram'
         ]);
     }
 }

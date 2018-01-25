@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UserPages extends Migration
+class CreateAccountHasGroupsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class UserPages extends Migration
      */
     public function up()
     {
-        Schema::create('user_pages', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->string('name')->unique();
-            $table->string('category')->default('none');
-            $table->string('photo')->nullable();
-            $table->string('user_id');
+        Schema::create('account_has_groups', function (Blueprint $table) {
+            $table->increments('id');
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class UserPages extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_pages');
+        Schema::dropIfExists('account_has_groups');
     }
 }

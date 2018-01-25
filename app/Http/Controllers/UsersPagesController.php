@@ -15,7 +15,7 @@ class UsersPagesController extends Controller
     public function index($user_id)
     {
         return response()->json([
-            'pages' => User::find($user_id)->pages
+            'accounts' => User::find($user_id)->pages
         ]);
     }
 }

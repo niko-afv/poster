@@ -14,6 +14,11 @@ class AccountTypesController extends Controller
      */
     public function index()
     {
-        return AccountType::all();
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'accounttypes' => AccountType::all()
+            ]
+        ]);
     }
 }
