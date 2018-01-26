@@ -17,7 +17,8 @@ class CreateAccountsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('image');
-            $table->json('metadata');
+            $table->json('metadata')->nullable();
+            $table->string('source_id');
             $table->integer('account_type_id')->unsigned();
             $table->string('user_id');
             $table->timestamps();

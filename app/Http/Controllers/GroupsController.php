@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Account;
+use App\Group;
 use App\User;
 use Illuminate\Http\Request;
 
-class AccountsController extends Controller
+class GroupsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,10 +19,20 @@ class AccountsController extends Controller
             [
                 'success' => true,
                 'data' => [
-                    'accounts' => User::byToken($this->token)->first()->accounts
+                    //'groups' => User::byToken($this->token)->first()->groups()->with('accounts')->get()
                 ]
             ]
         );
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -31,27 +41,24 @@ class AccountsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, $user_id)
+    public function store(Request $request)
     {
         $validator = \Illuminate\Support\Facades\Validator::make($request->all(), [
-            'id'=> 'required',
-            'name'=> 'required',
-            'photo' => 'required'
+            'name'=> 'unique:user_pages,name',
+            'user_id' => 'required|exists:users,id'
         ]);
 
         if ($validator->fails()) {
             return response()->json([
                 'success' => false,
-                'message' => 'Something went wrong!'
+                'message' => 'Group already exits!'
             ]);
         }
 
-        $response = Account::create([
-            'source_id' => $request->id,
-            'name' => $request->name,
-            'image' => $request->photo,
-            'user_id' => $user_id,
-            'account_type_id' => $request->account_type
+        $response = Group::create([
+            'name' => $request->group_name,
+            'description' => $request->group_description,
+            'user_id' => $request->user_id
         ]);
 
         return response()->json([
@@ -66,6 +73,17 @@ class AccountsController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
     {
         //
     }

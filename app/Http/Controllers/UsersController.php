@@ -43,4 +43,13 @@ class UsersController extends Controller
     {
         //
     }
+
+    public function groups(Request $request, $user_id){
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'groups' => User::where('id',$user_id)->first()->groups()->with('accounts')->get()
+            ]
+        ]);
+    }
 }

@@ -15,6 +15,8 @@ class CreateAccountHasGroupsTable extends Migration
     {
         Schema::create('account_has_groups', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('account_id')->unsigned();
+            $table->integer('group_id')->unsigned();
             $table->timestamps();
         });
     }

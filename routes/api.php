@@ -34,7 +34,11 @@ Route::post('/authenticate', function(Request $request){
 });
 
 Route::resource('users', 'UsersController');
+Route::get('users/{user_id}/groups', 'UsersController@groups');
+Route::post('users/{user_id}/accounts', 'AccountsController@store');
+
 Route::resource('accounts', 'AccountsController');
+Route::resource('groups', 'GroupsController');
 Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
 Route::resource('photos', 'PhotosController');

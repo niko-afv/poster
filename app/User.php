@@ -34,6 +34,10 @@ class User extends Authenticatable
         return $this->hasMany(Account::class, 'user_id', 'id');
     }
 
+    public function groups(){
+        return $this->hasMany(Group::class, 'user_id', 'id');
+    }
+
     public function scopeByToken($query, $token){
         return $query->where('token', $token);
     }
