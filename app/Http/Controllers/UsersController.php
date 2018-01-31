@@ -52,4 +52,17 @@ class UsersController extends Controller
             ]
         ]);
     }
+
+    public function removeAccount(Request $request, $user_id, $account_id){
+        $user = User::where('id',$user_id)->first();
+        $query = $user->accounts()->where('id', $account_id);
+        $query->delete();
+        $count = $query->count();
+        return response()->json([
+            'success' => ($count == 0)?true:false,
+            'data' => []
+        ]);
+    }
+
+
 }

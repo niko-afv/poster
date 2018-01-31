@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Http\Request;
 use App;
 
@@ -12,7 +13,7 @@ class FanPagesController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(Request $request, $user_id)
     {
         $fb = App::make('SammyK\LaravelFacebookSdk\LaravelFacebookSdk');
 
@@ -20,7 +21,16 @@ class FanPagesController extends Controller
         $pages_list = $fb_response->getGraphEdge()->asArray();
         $pages = [];
 
-        foreach ($pages_list as $page) {
+        $accounts = App\User::find($user_id)->accounts()->where('account_type_id',1)->get()->pluck('source_id');
+
+        $fanpages = new Collection($pages_list);
+        $fanpages2 = $fanpages->keyBy('id');
+        $fanpages = $fanpages->pluck('id');
+        $list = $fanpages->diff($accounts);
+
+
+        foreach ($list as $item) {
+            $page = $fanpages2[$item];
             $fb_response = $fb->get('/'.$page['id'].'/photos?fields=picture', $page['access_token']);
             $photos_list = $fb_response->getGraphEdge()->asArray();
 

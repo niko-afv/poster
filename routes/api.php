@@ -36,6 +36,7 @@ Route::post('/authenticate', function(Request $request){
 Route::resource('users', 'UsersController');
 Route::get('users/{user_id}/groups', 'UsersController@groups');
 Route::post('users/{user_id}/accounts', 'AccountsController@store');
+Route::delete('users/{user_id}/accounts/{account_id}', 'UsersController@removeAccount');
 
 Route::resource('accounts', 'AccountsController');
 Route::resource('groups', 'GroupsController');
@@ -43,7 +44,7 @@ Route::resource('posts', 'PostsController');
 Route::resource('pages', 'PagesController');
 Route::resource('photos', 'PhotosController');
 Route::resource('accounttypes', 'AccountTypesController');
-Route::get('fanpages', 'FanPagesController@index');
+Route::get('fanpages/{user_id}', 'FanPagesController@index');
 
 
 
